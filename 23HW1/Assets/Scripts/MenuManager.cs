@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] GameObject frog;
-
-    void Start()
+    void Update()
     {
-        LeanTween.moveY(frog, 365, 1f).setEase(LeanTweenType.easeInOutCubic).setOnComplete(frogMoveA);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene("GameScene");
+        }
     }
-
-    void frogMoveA() => LeanTween.moveY(frog, 305, 1f).setEase(LeanTweenType.easeOutCubic).setOnComplete(frogMoveB);
-    void frogMoveB() => LeanTween.moveY(frog, 365, 1f).setEase(LeanTweenType.easeInOutCubic).setOnComplete(frogMoveA);
 }
