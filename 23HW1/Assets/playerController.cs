@@ -7,9 +7,11 @@ public class playerController : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] SpriteRenderer spRender;
 
-    float speed = 7f;
     Rigidbody2D rb2D;
+
     bool grounded = true;
+    public bool moving = false;
+    float speed = 7f;
     float jumpPower = 700f;
     float fallMutiplier = 7.5f;
 
@@ -28,13 +30,19 @@ public class playerController : MonoBehaviour
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             transform.Translate(Vector3.right * Time.deltaTime * speed);
+            moving = true;
             spRender.flipX = false;
         }
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             transform.Translate(Vector3.left * Time.deltaTime * speed);
+            moving = true;
             spRender.flipX = true;
         }
+
+        if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow)) moving = false;
+        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow)) moving = false;
+
         if (Input.GetButtonDown("Jump") && grounded == true)
         {
             rb2D.AddForce(transform.up * jumpPower);
@@ -49,6 +57,12 @@ public class playerController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "ground") grounded = true;
+    }
+
+    public bool movingState()   //³Q©I¥s¥Î
+    {
+        if (moving) return true;
+        else return false;
     }
 
 }
