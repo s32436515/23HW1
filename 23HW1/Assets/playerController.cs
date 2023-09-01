@@ -9,6 +9,9 @@ public class playerController : MonoBehaviour
 
     float speed = 7f;
     Rigidbody2D rb2D;
+    bool grounded = true;
+    float jumpPower = 700f;
+    float fallMutiplier = 7.5f;
 
     void Start()
     {
@@ -32,7 +35,20 @@ public class playerController : MonoBehaviour
             transform.Translate(Vector3.left * Time.deltaTime * speed);
             spRender.flipX = true;
         }
+        if (Input.GetButtonDown("Jump") && grounded == true)
+        {
+            rb2D.AddForce(transform.up * jumpPower);
+            grounded = false;
+        }
+        if (rb2D.velocity.y < 0)    //掉落物理增強
+        {
+            rb2D.velocity += Vector2.up * Physics2D.gravity.y * (fallMutiplier - 1) * Time.deltaTime;
+        }
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "ground") grounded = true;
+    }
 
 }
