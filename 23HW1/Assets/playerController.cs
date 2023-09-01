@@ -4,50 +4,35 @@ using UnityEngine;
 
 public class playerController : MonoBehaviour
 {
-    [SerializeField] Rigidbody2D rb;
-    [SerializeField] Transform groundCheck;
-    [SerializeField] LayerMask groundLayer;
+    [SerializeField] GameObject player;
+    [SerializeField] SpriteRenderer spRender;
 
-    float horizontal;
-    float speed = 8f;
-    float jumpingPower = 16f;
-    bool isFacingRight = true;
+    float speed = 7f;
+    Rigidbody2D rb2D;
+
+    void Start()
+    {
+        rb2D = GetComponent<Rigidbody2D>();
+    }
 
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
+        playerMove();
+    }
 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+    void playerMove()
+    {
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            transform.Translate(Vector3.right * Time.deltaTime * speed);
+            spRender.flipX = false;
         }
-
-        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-        }
-
-        Flip();
-    }
-
-    void FixedUpdate()
-    {
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
-    }
-
-    bool IsGrounded()
-    {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-    }
-
-    void Flip()
-    {
-        if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
-        {
-            isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
+            transform.Translate(Vector3.left * Time.deltaTime * speed);
+            spRender.flipX = true;
         }
     }
+
+
 }
