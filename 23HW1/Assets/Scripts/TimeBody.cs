@@ -5,7 +5,7 @@ using UnityEngine;
 public class TimeBody : MonoBehaviour
 {
     bool isRewinding = false;
-    List<PointInTime> pointsInTime;
+    public List<PointInTime> pointsInTime;
     public float recordTime = 10f;
     [SerializeField] GameObject player;
     [SerializeField] SpriteRenderer spRender;
@@ -30,6 +30,11 @@ public class TimeBody : MonoBehaviour
             Rewind();
         else
             Record();
+    }
+
+    public void Initiate()
+    {
+        pointsInTime = new List<PointInTime>();
     }
 
     void Rewind()
@@ -59,12 +64,12 @@ public class TimeBody : MonoBehaviour
         pointsInTime.Insert(0, new PointInTime(player.transform.position, player.transform.rotation, spRender.flipX));
     }
 
-    void StartRewind()
+    public void StartRewind()
     {
         isRewinding = true;
     }
 
-    void StopRewind()
+    public void StopRewind()
     {
         isRewinding = false;
     }
