@@ -12,13 +12,15 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemy;
     GameObject _enemy;
     public EnemyRewind enemyRewind;
-    int finishedTimes;
+    int finishedTimes, o;
+    Vector3 instanPos;
 
     void Start()
     {
         //InvokeRepeating("SpawnEnemy", 1, 1);  //生成怪物(每秒一次)
         enemyPoints = new List<PointInTime>();
         timeBody.Initiate();
+        o = 0;
     }
 
     void Update()
@@ -30,37 +32,47 @@ public class EnemySpawner : MonoBehaviour
     {
         enemyPoints = new List<PointInTime>(timeBody.pointsInTime);
 
-        _enemy = Instantiate(enemy, enemyPoints[enemyPoints.Count - 1].position, Quaternion.identity);
-    }
-
-    /*IEnumerator moveAnim()
-    {
-        while ((enemyPoints_A.Count != enemyPoints_A.Count - 1) && enemyPoints_A.Count > 0)
+        if (o < 1)
         {
-            PointInTime pointInTime = enemyPoints_A[0];
-
-            _enemy.transform.position = pointInTime.position; Debug.Log("enemyPoints_A.Count - 1:" + (pointInTime.position));
-            _enemy.transform.rotation = pointInTime.rotation;
-
-            _enemy.GetComponent<SpriteRenderer>().flipX = !pointInTime.isFlip;
-
-
-            enemyPoints_A.RemoveAt(0);
-
-            yield return new WaitForSeconds(.018f);
+            instanPos = enemyPoints[enemyPoints.Count - 1].position;
+            o++;
         }
 
-        Destroy(_enemy);
-        print("rewind finished");
-    }*/
+
+        //_enemy = Instantiate(enemy, enemyPoints[enemyPoints.Count - 1].position, Quaternion.identity);
+    }
+
+    IEnumerator InstanEnemy()
+    {
+        Debug.Log("instanPos:" + instanPos);
+        Debug.Log("instanING!");
+        _enemy = Instantiate(enemy, instanPos, Quaternion.identity);
+        Debug.Log("instanCOM!");
+
+        yield return new WaitForSeconds(3f);
+    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "player")
         {
             SpawnEnemy();
+            StartCoroutine(InstanEnemy());
 
             finishedTimes++;
         }
     }
+
+    //IEnumerator SpawnAlot()
+    //{
+    //    while (isGamePlaying)
+    //    {
+    //        for (int i = 0; i < nowLevel; i++)
+    //        {
+    //            SpawnEnemy(i);
+    //        }
+    //        yield return new WaitForSeconds(3f);
+    //    }
+
+    //}
 }

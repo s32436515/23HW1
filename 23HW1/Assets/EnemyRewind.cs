@@ -8,6 +8,7 @@ public class EnemyRewind : MonoBehaviour
 
     List<PointInTime> enemyPoints;
     List<PointInTime> enemyPoints_1;
+    int enemyCount;
 
     void Start()
     {
@@ -18,23 +19,53 @@ public class EnemyRewind : MonoBehaviour
         StartCoroutine(RewindEnemy());
     }
 
+    void Update()
+    {
+
+    }
+
     public IEnumerator RewindEnemy()
     {
-        Debug.Log(enemyPoints_1.Count);
+        //Debug.Log(enemyPoints_1.Count);
+
+        //for(int i= enemyPoints_1.Count - 1; i > 0; i--)
+        //{
+        //    PointInTime pointInTime = enemyPoints_1[0];
+
+        //    transform.position = pointInTime.position; Debug.Log("enemyPoints_A.Count - 1:" + (pointInTime.position));
+        //    transform.rotation = pointInTime.rotation;
+        //    GetComponent<SpriteRenderer>().flipX = !pointInTime.isFlip;
+
+        //    yield return new WaitForSeconds(.018f);
+        //    break;
+        //}
+
         while ((enemyPoints_1.Count != enemyPoints_1.Count - 1) && enemyPoints_1.Count > 0)
         {
-            PointInTime pointInTime = enemyPoints_1[0];
+            for (int i = 0; i < enemyPoints_1.Count - 1; i++)
+            {
+                PointInTime pointInTime = enemyPoints_1[i];
 
-            transform.position = pointInTime.position; Debug.Log("enemyPoints_A.Count - 1:" + (pointInTime.position));
-            transform.rotation = pointInTime.rotation;
-            GetComponent<SpriteRenderer>().flipX = !pointInTime.isFlip;
+                if (i == 0)
+                    transform.position = enemyPoints_1[0].position;
+                else
+                    transform.position = pointInTime.position; //Debug.Log("enemyPoints_A.Count - 1:" + (pointInTime.position));
 
-            enemyPoints_1.RemoveAt(0);
+                transform.rotation = pointInTime.rotation;
+                GetComponent<SpriteRenderer>().flipX = !pointInTime.isFlip;
 
-            yield return new WaitForSeconds(.018f);
+                yield return new WaitForSeconds(.018f);
+            }
         }
-
-        Destroy(this.gameObject);
+        if (enemyPoints_1.Count == 0)
+            Destroy(this.gameObject);
         print("rewind finished");
     }
+
+    //IEnumerator Wait3s()
+    //{
+    //    yield return new WaitForSeconds(3f);
+    //    yield return StartCoroutine(RewindEnemy());
+    //}
+
 }

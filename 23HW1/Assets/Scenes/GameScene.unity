@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 35939647}
   m_Layer: 0
   m_Name: Froggg
-  m_TagString: Untagged
+  m_TagString: frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -245,6 +245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBody: {fileID: 1477916722}
   enemy: {fileID: 4837477311093267225, guid: 36603636feb0a6646b3f542758fcc920, type: 3}
+  enemyRewind: {fileID: -3066897133359741223, guid: 36603636feb0a6646b3f542758fcc920, type: 3}
 --- !u!61 &35939648
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1887,6 +1888,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBody: {fileID: 0}
   enemy: {fileID: 0}
+  enemyRewind: {fileID: 0}
 --- !u!4 &1302610874
 Transform:
   m_ObjectHideFlags: 0
