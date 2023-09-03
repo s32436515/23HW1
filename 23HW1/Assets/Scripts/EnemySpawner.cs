@@ -28,26 +28,11 @@ public class EnemySpawner : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.J))
         {
-            Debug.Log("program1");
-
             enemyPoints = new List<PointInTime>(timeBody.pointsInTime);
             _enemy = Instantiate(enemy, enemyPoints[enemyPoints.Count - 1].position, Quaternion.identity);
+
             enemyPoints_A = new List<PointInTime>(enemyPoints);
-            while (enemyPoints_A.Count != 0)
-            {
-                Debug.Log("program2");
-                Debug.Log(enemyPoints_A.Count);
-
-                PointInTime pointInTime = enemyPoints_A[enemyPoints_A.Count - 1];
-                Debug.Log(pointInTime.position);
-
-                _enemy.transform.position = pointInTime.position;
-                _enemy.transform.rotation = pointInTime.rotation;
-                _enemy.GetComponent<SpriteRenderer>().flipX = pointInTime.isFlip;
-
-                enemyPoints_A.RemoveAt(enemyPoints_A.Count - 1);
-                Debug.Log(enemyPoints_A.Count);
-            }
+            StartCoroutine(moveAnim());
         }
     }
 
@@ -57,6 +42,23 @@ public class EnemySpawner : MonoBehaviour
 
 
 
+    }
+
+    IEnumerator moveAnim()
+    {
+        while (enemyPoints_A.Count != 0)
+        {
+            PointInTime pointInTime = enemyPoints_A[enemyPoints_A.Count - 1];
+
+            _enemy.transform.position = pointInTime.position;
+            _enemy.transform.rotation = pointInTime.rotation;
+            _enemy.GetComponent<SpriteRenderer>().flipX = pointInTime.isFlip;
+
+            enemyPoints_A.RemoveAt(enemyPoints_A.Count - 1);
+
+            yield return null;
+        }
+        print("rewind finished");
     }
 
     void OnCollisionEnter2D(Collision2D collision)
