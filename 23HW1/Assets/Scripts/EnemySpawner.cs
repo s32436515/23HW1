@@ -46,17 +46,19 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator moveAnim()
     {
-        while (enemyPoints_A.Count != 0)
+        while ((enemyPoints_A.Count != enemyPoints_A.Count - 1) && enemyPoints_A.Count > 0)
         {
-            PointInTime pointInTime = enemyPoints_A[enemyPoints_A.Count - 1];
+            PointInTime pointInTime = enemyPoints_A[0];
 
-            _enemy.transform.position = pointInTime.position;
+            _enemy.transform.position = pointInTime.position; Debug.Log("enemyPoints_A.Count - 1:" + (pointInTime.position));
             _enemy.transform.rotation = pointInTime.rotation;
-            _enemy.GetComponent<SpriteRenderer>().flipX = pointInTime.isFlip;
 
-            enemyPoints_A.RemoveAt(enemyPoints_A.Count - 1);
+            _enemy.GetComponent<SpriteRenderer>().flipX = !pointInTime.isFlip;
 
-            yield return null;
+
+            enemyPoints_A.RemoveAt(0);
+
+            yield return new WaitForSeconds(.018f);
         }
         print("rewind finished");
     }
