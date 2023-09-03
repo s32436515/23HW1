@@ -7,18 +7,17 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] TimeBody timeBody;
 
     List<PointInTime> enemyPoints;
-    List<PointInTime> enemyPoints_A;
+    List<PointInTime> enemyPoints_1;
 
     public GameObject enemy;
     GameObject _enemy;
+    public EnemyRewind enemyRewind;
     int finishedTimes;
 
     void Start()
-
     {
         //InvokeRepeating("SpawnEnemy", 1, 1);  //生成怪物(每秒一次)
         enemyPoints = new List<PointInTime>();
-        //timeBody = new TimeBody();
         timeBody.Initiate();
     }
 
@@ -30,13 +29,11 @@ public class EnemySpawner : MonoBehaviour
     void SpawnEnemy()
     {
         enemyPoints = new List<PointInTime>(timeBody.pointsInTime);
-        _enemy = Instantiate(enemy, enemyPoints[enemyPoints.Count - 1].position, Quaternion.identity);
 
-        enemyPoints_A = new List<PointInTime>(enemyPoints);
-        StartCoroutine(moveAnim());
+        _enemy = Instantiate(enemy, enemyPoints[enemyPoints.Count - 1].position, Quaternion.identity);
     }
 
-    IEnumerator moveAnim()
+    /*IEnumerator moveAnim()
     {
         while ((enemyPoints_A.Count != enemyPoints_A.Count - 1) && enemyPoints_A.Count > 0)
         {
@@ -55,7 +52,7 @@ public class EnemySpawner : MonoBehaviour
 
         Destroy(_enemy);
         print("rewind finished");
-    }
+    }*/
 
     void OnCollisionEnter2D(Collision2D collision)
     {
