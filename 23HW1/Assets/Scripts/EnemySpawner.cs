@@ -25,23 +25,15 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         if (finishedTimes >= 5) Debug.Log("GGGGGGG");
-
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            enemyPoints = new List<PointInTime>(timeBody.pointsInTime);
-            _enemy = Instantiate(enemy, enemyPoints[enemyPoints.Count - 1].position, Quaternion.identity);
-
-            enemyPoints_A = new List<PointInTime>(enemyPoints);
-            StartCoroutine(moveAnim());
-        }
     }
 
     void SpawnEnemy()
     {
+        enemyPoints = new List<PointInTime>(timeBody.pointsInTime);
+        _enemy = Instantiate(enemy, enemyPoints[enemyPoints.Count - 1].position, Quaternion.identity);
 
-
-
-
+        enemyPoints_A = new List<PointInTime>(enemyPoints);
+        StartCoroutine(moveAnim());
     }
 
     IEnumerator moveAnim()
@@ -60,6 +52,8 @@ public class EnemySpawner : MonoBehaviour
 
             yield return new WaitForSeconds(.018f);
         }
+
+        Destroy(_enemy);
         print("rewind finished");
     }
 

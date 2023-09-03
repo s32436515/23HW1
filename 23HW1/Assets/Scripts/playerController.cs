@@ -31,6 +31,9 @@ public class playerController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "ground") grounded = true;
+
+        if (collision.gameObject.tag == "frog")
+            player.transform.position = new Vector3(-8.6f, -2.45f, 0);
     }
 
     void playerMove()

@@ -243,8 +243,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3904802038eff2f41bfa5ec2d4bfc639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 4837477311093267225, guid: 36603636feb0a6646b3f542758fcc920, type: 3}
   timeBody: {fileID: 1477916722}
+  enemy: {fileID: 4837477311093267225, guid: 36603636feb0a6646b3f542758fcc920, type: 3}
 --- !u!61 &35939648
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1885,8 +1885,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3904802038eff2f41bfa5ec2d4bfc639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
   timeBody: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!4 &1302610874
 Transform:
   m_ObjectHideFlags: 0
@@ -2184,7 +2184,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1477916713}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.5957, y: -2.43, z: 0}
+  m_LocalPosition: {x: -8.5, y: -2.43, z: 0}
   m_LocalScale: {x: 5.2, y: 5.2, z: 5.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
