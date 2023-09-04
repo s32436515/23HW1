@@ -13,7 +13,7 @@ public class playerController : MonoBehaviour
     bool grounded = true;
     bool playerMoving = false;
     float speed = 7f;
-    float jumpPower = 700f;
+    float jumpPower = 680f;
     float fallMutiplier = 7.5f;
 
     void Start()

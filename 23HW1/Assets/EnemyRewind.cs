@@ -20,65 +20,54 @@ public class EnemyRewind : MonoBehaviour
         if (enemySpawner.levelNow == 1)
         {
             timeBody.GetRewind(1);
-            enemyPoints_1 = new List<PointInTime>(timeBody.pointsInTime);
+            enemyPoints_1 = new List<PointInTime>();
+            enemyPoints_1 = timeBody.savePoint1;
             StartCoroutine(RewindEnemy(enemyPoints_1));
         }
 
         if (enemySpawner.levelNow == 2)
         {
             timeBody.GetRewind(2);
-            enemyPoints_2 = new List<PointInTime>(timeBody.pointsInTime);
+            enemyPoints_2 = new List<PointInTime>();
+            enemyPoints_2 = timeBody.savePoint2;
             StartCoroutine(RewindEnemy(enemyPoints_2));
         }
 
         if (enemySpawner.levelNow == 3)
         {
             timeBody.GetRewind(3);
-            enemyPoints_3 = new List<PointInTime>(timeBody.pointsInTime);
+            enemyPoints_3 = new List<PointInTime>();
+            enemyPoints_3 = timeBody.savePoint3;
             StartCoroutine(RewindEnemy(enemyPoints_3));
         }
 
         if (enemySpawner.levelNow == 4)
         {
             timeBody.GetRewind(4);
-            enemyPoints_4 = new List<PointInTime>(timeBody.pointsInTime);
+            enemyPoints_4 = new List<PointInTime>();
+            enemyPoints_4 = timeBody.savePoint4;
             StartCoroutine(RewindEnemy(enemyPoints_4));
         }
-
-
     }
 
-    void Update()
+    private void Update()
     {
-
+        Debug.Log("enemySpawner.levelNow: " + enemySpawner.levelNow);
     }
 
     public IEnumerator RewindEnemy(List<PointInTime> levelList)
     {
-        //Debug.Log(enemyPoints_1.Count);
-
-        //for(int i= enemyPoints_1.Count - 1; i > 0; i--)
-        //{
-        //    PointInTime pointInTime = enemyPoints_1[0];
-
-        //    transform.position = pointInTime.position; Debug.Log("enemyPoints_A.Count - 1:" + (pointInTime.position));
-        //    transform.rotation = pointInTime.rotation;
-        //    GetComponent<SpriteRenderer>().flipX = !pointInTime.isFlip;
-
-        //    yield return new WaitForSeconds(.018f);
-        //    break;
-        //}
-
         while ((levelList.Count != levelList.Count - 1) && levelList.Count > 0)
         {
-            for (int i = 0; i < levelList.Count - 1; i++)
+            for (int i = levelList.Count - 1; i > 0; i--)
             {
                 PointInTime pointInTime = levelList[i];
 
-                if (i == 0)
-                    transform.position = levelList[0].position;
+                if (i == (levelList.Count - 1))
+                    transform.position = levelList[levelList.Count-1].position;
                 else
                     transform.position = pointInTime.position; //Debug.Log("enemyPoints_A.Count - 1:" + (pointInTime.position));
+
                 transform.rotation = pointInTime.rotation;
                 GetComponent<SpriteRenderer>().flipX = !pointInTime.isFlip;
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class TimeBody : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class TimeBody : MonoBehaviour
     void Start()
     {
         pointsInTime = new List<PointInTime>();
+        savePoint1 = new List<PointInTime>();
+        savePoint2 = new List<PointInTime>();
+        savePoint3 = new List<PointInTime>();
+        savePoint4 = new List<PointInTime>();
     }
 
     void Update()
@@ -43,35 +48,34 @@ public class TimeBody : MonoBehaviour
     {
         if (pointsInTime.Count > 0)
         {
-            PointInTime pointInTime = pointsInTime[0];
+            PointInTime pointInTime = pointsInTime[pointsInTime.Count - 1];
             player.transform.position = pointInTime.position;
             player.transform.rotation = pointInTime.rotation;
             player.GetComponent<SpriteRenderer>().flipX = pointInTime.isFlip;
-            pointsInTime.RemoveAt(0);
+            pointsInTime.RemoveAt(pointsInTime.Count - 1);
         }
         else
         {
             StopRewind();
         }
-
     }
 
     void Record()
     {
         if (pointsInTime.Count > Mathf.Round(recordTime / Time.fixedDeltaTime))
         {
-            pointsInTime.RemoveAt(pointsInTime.Count - 1);
+            pointsInTime.RemoveAt(0);
         }
 
-        pointsInTime.Insert(0, new PointInTime(player.transform.position, player.transform.rotation, spRender.flipX));
+        pointsInTime.Add(new PointInTime(player.transform.position, player.transform.rotation, spRender.flipX));
     }
 
-    public void StartRewind()
+    void StartRewind()
     {
         isRewinding = true;
     }
 
-    public void StopRewind()
+    void StopRewind()
     {
         isRewinding = false;
     }
@@ -81,16 +85,16 @@ public class TimeBody : MonoBehaviour
         switch (indexCounter)
         {
             case 1:
-                savePoint1 = new List<PointInTime>(pointsInTime);
+                savePoint1 = pointsInTime.ToList();
                 break;
             case 2:
-                savePoint2 = new List<PointInTime>(pointsInTime);
+                savePoint2 = pointsInTime.ToList();
                 break;
             case 3:
-                savePoint3 = new List<PointInTime>(pointsInTime);
+                savePoint3 = pointsInTime.ToList();
                 break;
             case 4:
-                savePoint4 = new List<PointInTime>(pointsInTime);
+                savePoint4 = pointsInTime.ToList();
                 break;
         }
         //pointsInTime.Clear();

@@ -15,6 +15,7 @@ public class EnemySpawner : MonoBehaviour
     GameObject _enemy;
     int finishedTimes, o;
     Vector3 instanPos;
+    bool startFirstRewind = false;
 
     void Start()
     {
@@ -29,68 +30,54 @@ public class EnemySpawner : MonoBehaviour
         if (finishedTimes >= 5) Debug.Log("GGGGGGG");
     }
 
-    void SpawnEnemy()
-    {
-        //enemyPoints = new List<PointInTime>(timeBody.pointsInTime);
-
-
-        //_enemy = Instantiate(enemy, enemyPoints[enemyPoints.Count - 1].position, Quaternion.identity);
-    }
-
-    IEnumerator InstanEnemy()
-    {
-        Debug.Log("instanPos:" + enemyPoints[enemyPoints.Count - 1].position);
-        Debug.Log("instanING!");
-        _enemy = Instantiate(enemy, enemyPoints[enemyPoints.Count - 1].position, Quaternion.identity);
-        Debug.Log("instanCOM!");
-
-        yield return new WaitForSeconds(3f);
-    }
-
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "player")
         {
             levelNow++;
+            startFirstRewind = true;
 
-            if (levelNow == 1)
-            {
-                enemyPoints = new List<PointInTime>(timeBody.pointsInTime);
-                timeBody.SaveRewind(1);
-            }
-            if (levelNow == 2)
-            {
-                enemyPoints = new List<PointInTime>(timeBody.pointsInTime);
-                timeBody.SaveRewind(2);
-            }
-            if (levelNow == 3)
-            {
-                enemyPoints = new List<PointInTime>(timeBody.pointsInTime);
-                timeBody.SaveRewind(3);
-            }
-            if (levelNow == 4)
-            {
-                enemyPoints = new List<PointInTime>(timeBody.pointsInTime);
-                timeBody.SaveRewind(4);
-            }
+            timeBody.SaveRewind(levelNow);
 
-            
-            StartCoroutine(InstanEnemy());
+            StartCoroutine(SpawnAlot());
 
             finishedTimes++;
         }
     }
 
-    //IEnumerator SpawnAlot()
-    //{
-    //    while (isGamePlaying)
-    //    {
-    //        for (int i = 0; i < nowLevel; i++)
-    //        {
-    //            SpawnEnemy(i);
-    //        }
-    //        yield return new WaitForSeconds(3f);
-    //    }
+    IEnumerator SpawnAlot()
+    {
+        Debug.Log("levelNow A Is: " + levelNow);
+        while (startFirstRewind)
+        {
+            Debug.Log("levelNow B Is: " + levelNow);
+            for (int i = 1; i <= levelNow; i++)
+            {
+                Debug.Log("levelNow C Is: " + levelNow);
+                Debug.Log("int i Is: " + i);
+                SpawnEnemy();
+                Debug.Log("int i Is: " + i);
+            }
+            yield return new WaitForSeconds(3f);
+        }
+    }
 
-    //}
+    void SpawnEnemy()
+    {
+        _enemy = Instantiate(enemy, new Vector3(6.86f, 5.89f, 0), Quaternion.identity);
+    }
+
+    IEnumerator InstanEnemy(int levelNum)
+    {
+        timeBody.GetRewind(levelNum);
+        enemyPoints = timeBody.savePoint1;
+        //Debug.Log("enemyPoints[0]=" + enemyPoints[0].position + ", enemyPoints.Count-1=" + enemyPoints[enemyPoints.Count - 1].position);
+        //Debug.Log("instanPos:" + enemyPoints[0].position);
+        //Debug.Log("instanING!");
+        //_enemy = Instantiate(enemy, new Vector3(6.86f,5.89f,0), Quaternion.identity);
+        //Debug.Log("instanCOM!");
+
+        yield return null;
+        //yield return StartCoroutine(InstanEnemy(levelNum));
+    }
 }
