@@ -25,11 +25,6 @@ public class EnemySpawner : MonoBehaviour
         enemyCounter = 1;
     }
 
-    void Update()
-    {
-        if (finishedTimes >= 5) Debug.Log("GGGGGGG");
-    }
-
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "player")
@@ -50,8 +45,8 @@ public class EnemySpawner : MonoBehaviour
     {
         while (rewindswitcher)
         {
-            if (levelNow == 1 && enemyCounter <= 3 || levelNow == 2 && enemyCounter <= 8 ||
-                levelNow == 3 && enemyCounter <= 15 || levelNow == 4 && enemyCounter <= 22)
+            if (levelNow == 1 && enemyCounter <= 3 || levelNow == 2 && enemyCounter <= 6 ||
+                levelNow == 3 && enemyCounter <= 9 || levelNow == 4 && enemyCounter <= 12)
             {
                 SpawnEnemy();
                 enemyCounter++;

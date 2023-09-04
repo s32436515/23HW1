@@ -11,11 +11,11 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        goat1.SetActive(false);
-        goat2.SetActive(false);
-        goat3.SetActive(false);
-        goat4.SetActive(false);
-        goat5.SetActive(false);
+        goat1.GetComponent<Image>().enabled = false;
+        goat2.GetComponent<Image>().enabled = false;
+        goat3.GetComponent<Image>().enabled = false;
+        goat4.GetComponent<Image>().enabled = false;
+        goat5.GetComponent<Image>().enabled = false;
     }
 
     void Update()
@@ -28,19 +28,19 @@ public class GameManager : MonoBehaviour
         switch (enemySpawner.levelNow)
         {
             case 1:
-                goat1.SetActive(true);
+                goat1.GetComponent<Image>().enabled = true;
                 break;
             case 2:
-                goat2.SetActive(true);
+                goat2.GetComponent<Image>().enabled = true;
                 break;
             case 3:
-                goat3.SetActive(true);
+                goat3.GetComponent<Image>().enabled = true;
                 break;
             case 4:
-                goat4.SetActive(true);
+                goat4.GetComponent<Image>().enabled = true;
                 break;
             case 5:
-                goat5.SetActive(true);
+                goat5.GetComponent<Image>().enabled = true;
                 SceneManager.LoadScene("EndScene");
                 break;
         }
