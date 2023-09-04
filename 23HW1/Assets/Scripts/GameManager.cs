@@ -6,7 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameObject goat1, goat2, goat3, goat4, goat5;
+    [Header("Target Goats")]
+    [SerializeField] GameObject goat1;
+    [SerializeField] GameObject goat2;
+    [SerializeField] GameObject goat3;
+    [SerializeField] GameObject goat4;
+    [SerializeField] GameObject goat5;
+    [Space][Space]
     [SerializeField] EnemySpawner enemySpawner;
 
     void Awake()
