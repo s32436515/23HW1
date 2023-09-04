@@ -50,21 +50,16 @@ public class EnemyRewind : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        Debug.Log("enemySpawner.levelNow: " + enemySpawner.levelNow);
-    }
-
     public IEnumerator RewindEnemy(List<PointInTime> levelList)
     {
-        while ((levelList.Count != levelList.Count - 1) && levelList.Count > 0)
+        while (levelList.Count - 1 != 0)
         {
             for (int i = levelList.Count - 1; i > 0; i--)
             {
                 PointInTime pointInTime = levelList[i];
 
                 if (i == (levelList.Count - 1))
-                    transform.position = levelList[levelList.Count-1].position;
+                    transform.position = levelList[levelList.Count - 1].position;
                 else
                     transform.position = pointInTime.position; //Debug.Log("enemyPoints_A.Count - 1:" + (pointInTime.position));
 

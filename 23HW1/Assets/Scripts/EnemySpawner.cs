@@ -11,18 +11,18 @@ public class EnemySpawner : MonoBehaviour
 
     public GameObject enemy;
     public EnemyRewind enemyRewind;
-    public int levelNow = 0;
+    public int levelNow = 0, enemyCounter = 0;
     GameObject _enemy;
-    int finishedTimes, o;
+    int finishedTimes;
     Vector3 instanPos;
-    bool startFirstRewind = false;
+    bool rewindswitcher = false;
 
     void Start()
     {
         //InvokeRepeating("SpawnEnemy", 1, 1);  //生成怪物(每秒一次)
         enemyPoints = new List<PointInTime>();
         timeBody.Initiate();
-        o = 0;
+        enemyCounter = 1;
     }
 
     void Update()
@@ -35,7 +35,7 @@ public class EnemySpawner : MonoBehaviour
         if (collision.gameObject.tag == "player")
         {
             levelNow++;
-            startFirstRewind = true;
+            rewindswitcher = true;
 
             timeBody.SaveRewind(levelNow);
 
@@ -47,18 +47,19 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnAlot()
     {
-        Debug.Log("levelNow A Is: " + levelNow);
-        while (startFirstRewind)
+        while (rewindswitcher)
         {
-            Debug.Log("levelNow B Is: " + levelNow);
-            for (int i = 1; i <= levelNow; i++)
+            if (enemyCounter <= 5)
             {
-                Debug.Log("levelNow C Is: " + levelNow);
-                Debug.Log("int i Is: " + i);
-                SpawnEnemy();
-                Debug.Log("int i Is: " + i);
+                for (int i = 1; i <= levelNow; i++)
+                {
+                    SpawnEnemy();
+                }
+                enemyCounter++;
+                yield return new WaitForSeconds(2.5f);
             }
-            yield return new WaitForSeconds(3f);
+            else
+                rewindswitcher = false;
         }
     }
 
