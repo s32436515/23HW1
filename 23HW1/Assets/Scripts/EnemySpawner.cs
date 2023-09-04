@@ -10,8 +10,9 @@ public class EnemySpawner : MonoBehaviour
     List<PointInTime> enemyPoints_1;
 
     public GameObject enemy;
-    GameObject _enemy;
     public EnemyRewind enemyRewind;
+    public int levelNow = 0;
+    GameObject _enemy;
     int finishedTimes, o;
     Vector3 instanPos;
 
@@ -30,13 +31,7 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        enemyPoints = new List<PointInTime>(timeBody.pointsInTime);
-
-        if (o < 1)
-        {
-            instanPos = enemyPoints[enemyPoints.Count - 1].position;
-            o++;
-        }
+        //enemyPoints = new List<PointInTime>(timeBody.pointsInTime);
 
 
         //_enemy = Instantiate(enemy, enemyPoints[enemyPoints.Count - 1].position, Quaternion.identity);
@@ -44,9 +39,9 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator InstanEnemy()
     {
-        Debug.Log("instanPos:" + instanPos);
+        Debug.Log("instanPos:" + enemyPoints[enemyPoints.Count - 1].position);
         Debug.Log("instanING!");
-        _enemy = Instantiate(enemy, instanPos, Quaternion.identity);
+        _enemy = Instantiate(enemy, enemyPoints[enemyPoints.Count - 1].position, Quaternion.identity);
         Debug.Log("instanCOM!");
 
         yield return new WaitForSeconds(3f);
@@ -56,7 +51,30 @@ public class EnemySpawner : MonoBehaviour
     {
         if (collision.gameObject.tag == "player")
         {
-            SpawnEnemy();
+            levelNow++;
+
+            if (levelNow == 1)
+            {
+                enemyPoints = new List<PointInTime>(timeBody.pointsInTime);
+                timeBody.SaveRewind(1);
+            }
+            if (levelNow == 2)
+            {
+                enemyPoints = new List<PointInTime>(timeBody.pointsInTime);
+                timeBody.SaveRewind(2);
+            }
+            if (levelNow == 3)
+            {
+                enemyPoints = new List<PointInTime>(timeBody.pointsInTime);
+                timeBody.SaveRewind(3);
+            }
+            if (levelNow == 4)
+            {
+                enemyPoints = new List<PointInTime>(timeBody.pointsInTime);
+                timeBody.SaveRewind(4);
+            }
+
+            
             StartCoroutine(InstanEnemy());
 
             finishedTimes++;
