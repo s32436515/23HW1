@@ -19,6 +19,7 @@ public class EnemyRewind : MonoBehaviour
 
         if (enemySpawner.levelNow == 1)
         {
+            //Debug.Log("levelNowIs: " + enemySpawner.levelNow);
             timeBody.GetRewind(1);
             enemyPoints_1 = new List<PointInTime>();
             enemyPoints_1 = timeBody.savePoint1;

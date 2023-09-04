@@ -36,6 +36,7 @@ public class EnemySpawner : MonoBehaviour
         {
             levelNow++;
             rewindswitcher = true;
+            Destroy(GameObject.Find("enemy(Clone)"));
 
             timeBody.SaveRewind(levelNow);
 
@@ -49,14 +50,12 @@ public class EnemySpawner : MonoBehaviour
     {
         while (rewindswitcher)
         {
-            if (enemyCounter <= 5)
+            if (levelNow == 1 && enemyCounter <= 3 || levelNow == 2 && enemyCounter <= 8 ||
+                levelNow == 3 && enemyCounter <= 15 || levelNow == 4 && enemyCounter <= 22)
             {
-                for (int i = 1; i <= levelNow; i++)
-                {
-                    SpawnEnemy();
-                }
+                SpawnEnemy();
                 enemyCounter++;
-                yield return new WaitForSeconds(2.5f);
+                yield return new WaitForSeconds(3f);
             }
             else
                 rewindswitcher = false;

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4837477311093267222}
   - component: {fileID: 4837477311093267223}
-  - component: {fileID: 4837477311093267220}
+  - component: {fileID: 8947406203802301252}
   - component: {fileID: 4837477311093267226}
   - component: {fileID: 4837477311093267227}
   - component: {fileID: -3066897133359741223}
@@ -88,7 +88,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &4837477311093267220
+--- !u!95 &8947406203802301252
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -96,9 +96,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4837477311093267225}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 82ae8be75b4f94c4c8b3310e0af31fee, type: 2}
+  m_Controller: {fileID: 9100000, guid: 4e5297460948634459f4ca8e2a787233, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -169,4 +169,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBody: {fileID: 0}
-  enemy: {fileID: 4837477311093267225}
+  enemySpawner: {fileID: 0}
